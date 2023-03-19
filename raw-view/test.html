@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Image Swap on Hover with CSS</title>
+</head>
+<body>
+    <select id="MySelectMenu">
+        <option value="https://beamtic.com/">Beamtic</option>
+        <option value="https://fr.wikipedia.org/wiki/Main_Page">Wiki</option>
+    </select>
+    <button onClick="newSrc();">Change Iframe Src</button>
+    <iframe src="https://beamtic.com/" style="width:450px;height:450px;overflow:scroll;" id="MyFrame"></iframe>
+    <script>
+        function newSrc() {
+            var e = document.getElementById("MySelectMenu");
+            var newSrc = e.options[e.selectedIndex].value;
+            document.getElementById("MyFrame").src=newSrc;
+        }
+    </script>
+</body>
+</html>

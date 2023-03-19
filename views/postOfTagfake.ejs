@@ -1,0 +1,127 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body{
+        background: linear-gradient(to bottom, #66ffff 50%, #00ff99 100%);
+    }
+    h2{
+        margin-left: 50px;
+    }
+    #search-area{
+        background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+    }
+</style>
+<body>
+    <!-- select tag_name từ tag, post có id_tag bằng id_tag -->
+    <div class="container" style="padding: 0;margin:0;width:100%;">
+        <form name="search__form" id="search" style="margin: 0;background-color:white;width:100%;">
+            <div class="search__bar" style="height: 70px; width: 100%; display: flex; box-shadow: 5px 5px 5px rgb(188, 187, 187);position:relative;">
+                <div class="right-item" style="display: flex;width:200px; position:absolute;right:80%;margin-top:10px">
+                    <a href="/controller/mainForm" style="font-size: 40px;text-decoration:none;">Home</a>
+                </div>
+                <div class="left-item" style="display: flex;width:30%; position:absolute;left:70%; margin-top:15px;">
+                    <form action="/controller/search/" method="post">
+                        <!-- hidden view để nhận biết search từ trang nào đến
+                        Nếu value=home thì lấy list bài viết tìm kiếm đc kèm các giá trị từ session và list random như home
+                        Nêsu value=postTag thì lấy list bài kèm tên tag -->
+                        <input type="hidden" id="view" value="postTag">
+                        <!--Sau khi kiểm tra nếu là từ postTag thì lấy tên của tag từ hidden sau để tìm kiếm bài viết dựa trên tag và theo title hoặc content-->
+                        <input type="hidden" id="name-tag" value="<%= tag.name_tag %>">
+                        <input type="text" name="search" id="search-area" placeholder="Tìm kiếm bài viết..." style="height: 40px; width:250px;border:0;background-color:rgb(239, 239, 239);border-radius:8px 0 0 8px;padding-left: 40px;">
+                        <input class="btn btn-primary" id="btn-search" type="submit" value="Tìm kiếm" style="border-radius: 0 8px 8px 0;">
+                    </form>
+                </div>
+            </div>
+        </form>
+        <h2>Chuyên ngành: <%= tag.name_tag %> </h2>
+        <!-- hiển thị list post -->
+        <div class="list-post" style="height:auto; width:800px;margin-left: 180px;margin-top: 20px;">
+            <!-- hiển thị lần lượt từng bài viết trong listpost -->
+            <!-- select icon image, name của doctor viết bài; id, time, title, content, image_path,like của bài viết -->
+            <% for(let post of posts) { %>
+            <div class="posts" style="width: 600px;border-radius: 10px;background-color: white;">
+                <div class="head" style="display: flex;border-radius: 10px;padding: 15px;background: white;align-items: center;justify-content: space-between;">
+                    <div class="name-profile" style="display: flex;align-items: center;">
+                        <img src="/images/<%= post.image_path %> " class="avatar" style="width: 40px;height: 40px;border-radius: 5px;border: 1px solid rgb(184, 184, 184);">
+                        <div class="name-title" style="margin-left: 10px;">
+                            <h4 id="name" style="margin-bottom: 0px;"><%= post.title %> </h4>
+                            <p id="time-post" style="color: gray;font-size: 14px;"><%= post.time %> </p>
+                        </div>
+                    </div>
+                    <% var user = JSON.parse(localStorage.getItem('user'));%>
+                    <% if(user.id==post.id_dr) { %>
+                        <div class="icon" style="display: flex;">
+                            <i class="fas fa-ellipsis-h svg" onclick="displayOpt()" style="height: 40px;width: 40px;border-radius: 50%;cursor: pointer;text-align: center;margin-top: 10px;"></i>
+                            <div class="select-opt" id="select-opt" style="display:none;border:1px solid rgb(79, 79, 79);">
+                                <div style="width:60px;height:20px;margin-bottom:5px;">
+                                    <a style="text-decoration: none;font-size:20px;padding:0 0 0px 10px;cursor:pointer;">Edit</a>
+                                </div>
+                                <div style="width:100%;height:1px;background-color:rgb(79, 79, 79);"></div>
+                                <div style="width:60px;height:20px;margin-bottom:5px;">
+                                    <a style="text-decoration: none;font-size:20px;padding:0 0 0px 2px;cursor:pointer;">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+                <div class="body" style="padding: 0 15px 10px 15px;">
+                    <a href="/postDetail/<%= post.id_post %> " style="font-size: 30px;text-decoration:none;color:black;cursor:pointer;"><%= post.title %> </a>
+                    <!-- chèn nội dung vào hoặc để null nếu chỉ có ảnh -->
+                    <p id="content" style="font-size: 16px;"><%= post.content %> </p>
+                    <div class="post-images" id="post-images" style="padding-top: 15px;">
+                        <img src="/images/<%= post.image_path %> " alt="Illustrator pic" class="post-image" style="width: 570px;height: auto;border-radius: 10px;margin-bottom: 5px;">
+                    </div>
+                    <div class="btn-icon">
+                        <form action="/controller/like-post/<%= post.id_post %>" method="post">
+                            <div class="left-icon" style="display: flex;">
+                                <!--Kiểm tra trong danh sách các bài viết đã like của user có id bài post hay ko
+                                nếu có thì hiển thị unlike, ko thì like-->
+                                <!--Dùng type submit, nếu tự động chuyển trang và ko về đc thì thử type button-->
+                                <% if(user.liked_post.includes(post.id_post)) {%>
+                                <input type="submit" class="btn btn-primary" id="btn-like" onclick="actOnPost(this.value)" value="Like">
+                                <% }else{ %>
+                                <input type="submit" class="btn btn-primary" id="btn-unlike" onclick="actOnPost(this.value)" value="Unlike">
+                                <% } %>
+                                <!--Lấy số lượng like của bài viết-->
+                                <input type="hidden"  id="likes-count" value="<%= post.like %>">
+                                <!-- Lấy id người dùng để thêm hoặc id post vào/ra danh sách các post đã like-->
+                                <input type="hidden" id="id-user" value="<%= user.id %>">
+                                <span style="font-size: 20px; margin:5px 0 0 10px"><%= post.like %></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+              </div>
+              <% } %>
+                <script>
+                    function displayOpt(){
+                        var opt = document.getElementById("select-opt");
+                        if(opt.style.display='none'){
+                            opt.style.display='block';
+                        }else if(opt.style.display='block'){
+                            opt.style.display='none'
+                        }
+                    }
+
+                    function actOnPost(val) {
+                        if(val=='Like'){
+                            var btn = document.getElementById('btn-like');
+                            btn.value='Unlike';
+                            btn.id='btn-unlike';
+                        }
+                        else if(val=='Unlike'){
+                            var btn = document.getElementById('btn-unlike');
+                            btn.value='Like';
+                            btn.id='btn-like';
+                        }
+                    }
+                </script>
+            </div>
+    </div>
+</body>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="shortcut icon" href="../doan/resources/images/logo.png">
+        <!--  -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Radio+Canada&display=swap" rel="stylesheet">
+        <!--  -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <!--  -->
+        <link rel="stylesheet" href="../doan/resources/css/editProfile.css">
+        <script src="../doan/resources/js/editProfile.js"></script>
+    </head>
+    <body>
+        <form action="" method="post" name="edit-profile">
+            <div class="profile">
+                <h1 id="profile__title">Edit Profile</h1>
+                <div class="profile__img">
+                    <label class="-label" for="file">
+                      <span class="glyphicon glyphicon-camera"></span>
+                      <span>Change Image</span>
+                    </label>
+                    <input id="file" type="file" onchange="loadFile(event)"/>
+                    <img src="../doan/resources/images/hh.png" id="output" width="200px" height="200px"/>
+                </div>
+                <div class="profile__content profile__name">
+                    <table id="profile__name">
+                        <tr>
+                            <th ><label for="lname" class="title__content" id="lname">Họ</label></th>
+                            <th ><label for="fname" class="title__content" id="fname">Tên</label></th>
+                        </tr>
+                        <tr>
+                            <th ><input type="text" id="lname" name="lname"></th>
+                            <th ><input type="text" id="fname" name="fname"></th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="profile__content profile__email">
+                    <table id="profile__email">
+                        <tr>
+                            <th ><label for="email" class="title__content" id="email">Email</label></th>
+                        </tr>
+                        <tr>
+                            <th ><input type="text" id="email" name="email"></th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="profile__content profile__contact">
+                    <table id="profile__contact">
+                        <tr>
+                            <th ><label for="contact" class="title__content" id="contact">Số điện thoại</label></th>
+                            <th ><label for="gender" class="title__content" id="gender">Giới tính</label></th>
+                        </tr>
+                        <tr>
+                            <th ><input type="text" id="contact" name="contact"></th>
+                            <th>
+                                <select class="form-control" name="gender" id="gender">
+                                    <option value="1">Nam</option>
+                                    <option value="0">Nữ</option>
+                                </select>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="profile__content profile__address">
+                    <table id="profile__address">
+                        <tr>
+                            <th ><label for="address" class="title__content" id="address">Email</label></th>
+                        </tr>
+                        <tr>
+                            <th ><input type="text" id="address" name="address"></th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="profile__content profile__pass">
+                    <table id="profile__pass">
+                        <tr>
+                            <th ><label for="pass" class="title__content" id="pass">Mật khẩu</label></th>
+                        </tr>
+                        <tr>
+                            <th ><input type="password" id="pass__field" name="pass" style="margin-left: 40px;">
+                            <i id="pass-status" class="fa fa-eye" aria-hidden="true" onClick="viewPassword()"></i>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <!-- show nếu là bác sĩ, bth để hide -->
+                <div class="profile__content profile__tag">
+                    <table id="profile__tag">
+                        <tr>
+                            <th ><label for="tag" class="title__content" id="tag">Danh sách tag</label></th>
+                        </tr>
+                        <tr>
+                            <th >
+                                <!-- Lấy danh sách tag rồi bỏ vào for in ở đây -->
+                                <div id="tag-dr">
+                                    <p>Tim mạch</p>
+                                </div>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="profile__content">
+                    <input id="save" type="submit" value="SAVE">
+                </div>
+                <div class="footer"></div>
+            </div>
+        </form>
+    </body>
+</html>
+</html>

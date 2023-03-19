@@ -1,0 +1,207 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Readmore.js/2.2.1/readmore.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<style>
+    body {
+        background-image: linear-gradient(0deg, rgba(0,255,255,0), rgba(0,255,255,1) 90%);
+    }
+    .content .more-text{
+      display: none;
+    }
+    .content .read-less{
+        display: none;
+    }
+</style>
+
+<!-- đưa lên từ controller bài post theo id và 1 list comment có id post = id post -->
+<!-- post gồm các thuộc tính post kèm username, id, icon image của chủ post -->
+<div class="list-post" style="display:flex;height:auto; width:1100px;margin-left: 50px;margin-top: 20px;">
+    <img class="bg-img" src="https://cdn.sanity.io/images/0vv8moc6/medec/17907949b2d1d0f89f9f012a9f5d5ecd1591e5e0-1500x996.jpg" style="opacity: 0.3;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;">
+    <div class="posts" style="width: 600px;border-radius: 10px;background-color: white; margin-right:20px">
+        <div class="head"
+            style="display: flex;border-radius: 10px;padding: 15px;background: white;align-items: center;justify-content: space-between;">
+            <div class="name-profile" style="display: flex;align-items: center;">
+                <img src="/images/<%= post.icon_image %>" alt="Avatar of user" class="avatar"
+                    style="width: 40px;height: 40px;border-radius: 5px;border: 1px solid rgb(184, 184, 184);">
+                <div class="name-title" style="margin-left: 10px;">
+                    <h4 id="name" style="margin-bottom: 0px;">
+                        <%= post.name %>
+                    </h4>
+                    <p id="time-post" style="color: gray;font-size: 14px;">
+                        <%= post.time %>
+                    </p>
+                </div>
+            </div>
+            <div class="icon">
+                <i class="fas fa-ellipsis-h svg"
+                    style="height: 40px;width: 40px;border-radius: 50%;cursor: pointer;text-align: center;margin-top: 10px;"></i>
+            </div>
+        </div>
+        <div class="body" style="padding: 5px 15px 10px 15px;">
+            <a href="#" style="font-size: 30px;text-decoration:none;color:black;cursor:pointer;">
+                <%= post.title %>
+            </a>
+            <!-- chèn nội dung vào hoặc để null nếu chỉ có ảnh -->
+            <p class="content" style="font-size: 16px;white-space: pre-line;">
+                <%= post.content %>
+            </p>
+            <div class="post-images" id="post-images" style="padding-top: 15px;">
+                <!-- bỏ vào for để chèn tất cả các hình của post vào đây -->
+                <img src="/images/<%=post.image_path%>" class="post-image" alt="Illustration image"
+                    style="width: 570px;height: auto;border-radius: 10px;margin-bottom: 5px;">
+            </div>
+            <div class="btn-icon">
+                <div class="left-icon" style="display: flex;">
+                    <span id="likes-count-1 " style="font-size: 20px; margin:5px 0 0 10px">
+                        <%= post.liked %>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- <script>
+          $(document).ready(function(){
+            var maxLength = 100;
+            $( ".content" ).each(function(){
+              var str = $(this).text();
+              if($.trim( str ).length > maxLength){
+              var nstr = str.substring(0, maxLength);
+              var rmstr = str.substring(maxLength, $.trim( str).length);
+              $(this).empty().html(nstr);
+              $(this).append(' <a href = "javascript:void(0);" class = "read-more"> read more... </a>');
+              $(this).append('<span class = "more-text">' + rmstr + '</span>');
+            }
+          });
+          $( ".read-more" ).click(function(){
+            $(this).siblings( ".more-text" ).contents().unwrap();
+            $(this).remove();
+            });
+          });
+        </script> -->
+
+        <script>
+          $(document).ready(function(){
+            var maxLength = 300;
+            $(".content").each(function(){
+                var myStr = $(this).text();
+                if($.trim(myStr).length > maxLength){
+                    var newStr = myStr.substring(0, maxLength);
+                    var removedStr = myStr.substring(maxLength, myStr.length);
+                    $(this).empty().html(newStr);
+                    $(this).append(' <a href="javascript:void(0);" class="read-more badge rounded-pill text-bg-primary">Xem thêm...</a>');
+                    $(this).append('<span class="more-text">' + removedStr + '</span>');
+                    $(this).append('<a href="#" class="read-less badge rounded-pill text-bg-primary"> Thu gọn</a>');
+                }
+            });
+            $(".read-more").click(function(){
+                $(this).siblings().slideToggle(200);
+                $(this).hide();
+            });
+            $(".read-less").click(function(){
+                $(this).siblings().slideToggle(200);
+                $(this).hide();
+            });
+        });
+
+        </script>
+    </div>
+    <!--<div style="height: auto;width:1px;background-color:rgb(105, 104, 104)"></div>-->
+    <!-- comment box  -->
+    <% var idUser = JSON.parse(localStorage.getItem('user')).id; %>
+    <div class="comment-box" style="background-color: white;border-radius:10px;flex-grow:100;padding:0 10px 0 10px">
+        <h2 style="text-align: center;margin-top:20px;margin-bottom:20px;">Comment</h2>
+
+        <!-- tạo comment mới -->
+        <div class="card">
+            <h5 class="card-header">Leave a comment</h5>
+            <div class="card-body">
+                <form method="post" action="/controller/comment ">
+                    <div class="form-group">
+                        <img src="/images/hh.png"
+                            style="width: 40px;height: 40px;border-radius: 5px;border: 1px solid rgb(184, 184, 184);margin-bottom:10px">
+                        <!-- idUser, Name lấy từ session -->
+                        <input type="hidden" name="id_post" id="id_post" value="<%= post.id_post %> ">
+                        <input type="hidden" name="id_user" id="id_user" value="<%= idUser %> ">
+                        <h4>Name</h4>
+                        <textarea type="text" id="txt_content" class="form-control" row="3" name="comment"></textarea>
+                    </div>
+                    <input type="submit" id="btn-submit" class="btn btn-primary" value="Submit">
+                </form>
+            </div>
+        </div>
+
+        <!-- hiển thị comment -->
+        <!-- lấy list comment tương ứng với id post kèm theo icon image và name của người post-->
+          <% if(comments) {
+               for(let comment of comments) {
+                 if(comment.id_parent == null){
+                   var name = comment.csname!=null?comment.csname:(comment.drname!=null?comment.drname:comment.adname);
+                   var imageIcon = comment.csimg!=null?comment.csimg:(comment.drimg!=null?comment.drimg:comment.adimg); %>
+                <div class="media mb-4 card" style="width:477px;padding-left:10px">
+                    <div style="display: block;">
+                        <img src="/images/<%= imageIcon %> " width="40px" height="40px" alt="">
+                        <div class="media-body">
+                            <!--name của tác giả-->
+                            <h5 class="mt-0"><%= name %></h5>
+                            <p><%= comment.time %></p>
+                        </div>
+                        <p><%= comment.content %></p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="openComment(<%= comment.id_cmt %>)" style="height: 30px;width:40px;margin-bottom:10px">Reply</button>
+                <form method="post" action="/controller/comment" id="reply-box<%= comment.id_cmt %>" style="padding-left: 30px;display: none;">
+                      <div class="form-group">
+                          <input type="hidden" name="id_post" id="id_post" value="<%= post.id_post %> ">
+                          <input type="hidden" id="id_user" name="id_user" value="<%= idUser %> ">
+                          <input type="hidden" id="id_parent" name="id_parent" value="<%= comment.id_cmt %> ">
+                          <textarea type="text" id="txt_content" class="form-control" row="3" name="comment"></textarea>
+                      </div>
+                      <input type="submit" id="btn-submit" class="btn btn-primary" value="Submit">
+                  </form>
+                    <% for(let child of comments) {
+                        if(String(child.id_parent).includes(String(comment.id_cmt))){
+                          var name = child.csname!=null?child.csname:(child.drname!=null?child.drname:child.adname);
+                          var imageIcon = child.csimg!=null?child.csimg:(child.drimg!=null?child.drimg:child.adimg);
+                    %>
+                            <div class="media mb-4 card ms-5" style="width:477px;padding-left:10px">
+                                <div style="display: flex;">
+                                    <img src="/images/<%= imageIcon %> " width="40px" height="40px" alt="">
+                                    <div class="media-body">
+                                        <h5 class="mt-0"><%= name %></h5>
+                                        <p><%= child.time %></p>
+                                    </div>
+                                </div>
+                                <p><%= child.content %></p>
+                            </div>
+                        <% } %>
+                  <% } %>
+            <% }} %>
+        <% } %>
+
+        <!--scrip để mở reply box -->
+        <script>
+            function openComment(id){
+                var box = document.getElementById("reply-box" + id);
+                if(box.style.display=='none'){
+                    box.style.display='block';
+                }else if(box.style.display=='block'){
+                    box.style.display='none';
+                }
+            }
+        </script>
+    </div>
+</div>

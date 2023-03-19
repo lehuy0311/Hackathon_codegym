@@ -1,0 +1,41 @@
+body{
+    font-size: 15px;
+}
+.tabcontent{
+  border-radius: 10px;
+  padding: 10px 50px 10px 50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.btn.btn-primary{
+  border-radius: 5px;
+  border:none;
+}
+.hieungulon{
+  color: white;
+
+}
+.dr__list h1{
+    font-family: 'Radio Canada', sans-serif;
+    color: rgb(119, 119, 119);
+    padding: 30px 0 30px 30px;
+    font-size: 30px;
+}
+.dr__list .dr__list__table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dr__list .dr__list__table th{
+    margin: 0;
+    text-align: center;
+    background-color: rgb(74, 142, 253);
+}
+.dr__list .dr__list__table td #col{
+    margin: 0;
+    margin-top: 15px;
+    text-align: center;
+}
+.dr__list .dr__list__table td #col-img{
+    margin: 0;
+    text-align: center;
+}

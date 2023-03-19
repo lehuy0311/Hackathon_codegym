@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Bootstrap Vertical Tab Menus</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- Font Awesome -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/css/leaderboard.css">
+<script src="https://kit.fontawesome.com/7c97a72e23.js" crossorigin="anonymous"></script>
+<script  type="text/javascript" src="/js/leaderboard.js"></script>
+</head>
+<body>
+  <img class="bg-img" src="https://cdn.sanity.io/images/0vv8moc6/medec/17907949b2d1d0f89f9f012a9f5d5ecd1591e5e0-1500x996.jpg">
+<div class="container">
+    <div class="d-flex align-items-stretch">
+
+      <!-- Tab bar (vertical) -->
+      <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button class="nav-link active" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">All</button>
+        <% for(let tag of tags) { %>
+            <button class="nav-link" id="v-pills-<%= tag.id_tag%>-tab" data-bs-toggle="pill" data-bs-target="#v-pills-<%= tag.id_tag%>" type="button" role="tab" aria-controls="v-pills-<%=tag.id_tag%>" aria-selected="false"><%= tag.name_tag %></button>
+        <% } %>
+      </div>
+
+      <!-- content tab (include table) -->
+      <div class="tab-content" id="v-pills-tabContent">
+
+        <div class="tab-pane fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab" tabindex="0">
+          <table class="table">
+              <tr>
+              <th scope="col" class="ranknum">No.</th>
+              <th scope="col">
+                  Name of doctor
+              </th>
+              <th scope="col">Like</th>
+              <th scope="col">Name of rank</th>
+              </tr>
+          <tbody class="table-body">
+            <%var i = 1;
+            var top10 = docs.slice(0, 10);
+            %>
+            <!-- table's row -->
+            <% for(let doc of top10) { %>
+              <% switch (i){
+
+                case(1):  %>
+              <tr class="first-row">
+                <th scope="row">
+                    <i class="fa-solid fa-medal fa-xl" style="color: rgb(227, 219, 0); "></i>
+                    <%= i%>
+                </th>
+                <% break; %>
+
+                <% case(2): %>
+            <tr class="second-row">
+                <th scope="row">
+                    <i class="fa-solid fa-medal fa-xl" style="color: rgb(182, 182, 182);"></i>
+                    <%= i%>
+                </th>
+                <% break; %>
+
+              <% case(3): %>
+              <tr class="third-row">
+                <th scope="row">
+                    <i class="fa-solid fa-medal fa-xl" style="color: rgb(229, 161, 15);"></i>
+                    <%= i%>
+                </th>
+                <% break; %>
+
+                <%default: %>
+              <tr class="table-light">
+                  <th scope="row">
+                      <%= i%>
+                  </th>
+                  <% break; %>
+                <% } %>
+
+                <td >
+                    <div class="img-and-name">
+                        <img class="avatar" src= <%= doc.icon_image!='' ? `/images/${doc.icon_image}` :`/images/default-ava.png` %> alt="Nani">
+                        <div class="badge <%= i==1 ? "alert-warning" : (i==2? "alert-dark": (i==3? "alert-danger": "alert-primary")) %> row-name" style="font-size: 15px;"><%= doc.name%></div>
+                    </div>
+                    <div class="card mini-profile position-absolute" >
+                        <div class="content">
+                            <img class="card-img-top" src= <%= doc.icon_image!='' ? `/images/${doc.icon_image}` :`/images/default-ava.png` %>  
+                            alt="Card image cap">
+                            <div class="card-body">
+                            <h5 class="card-title">Doctor name: <%= doc.name %> </h5>
+                            <p class="card-text">Phone number: <%=doc.phonenumber%></p>
+                            <% if (doc.email) {%><p class="card-text">Phone number: <%=doc.email%></p> <%}%>
+                            <a href="#" class="badge alert-primary"><%=doc.name_tag%></a>
+                            </div>
+                        </div>
+                        <div class="btngr">
+                            <a href="/controller/chat/<%= doc.name%>" class="btn btn-primary" id="chat">Chat</a>
+                        </div>
+                    </div>
+                </td>
+                <td><%= doc.sum_like%></td>
+                <td><%=doc.name_rank%> </td>
+              </tr>
+
+            
+              <%i++;}%>
+          </tbody>
+          </table>
+        </div>
+
+        <% for(let tag of tags) {
+          i = 1;
+          var res = docs.filter(findTag);
+          function findTag(doc){
+            return doc.id_tag==tag.id_tag;
+          }
+          var top3 = res.slice(0, 3);
+          %>
+          <div class="tab-pane fade" id="v-pills-<%= tag.id_tag%>" role="tabpanel" aria-labelledby="v-pills-<%= tag.id_tag%>-tab" tabindex="0">
+          <!-- table's header -->
+          <table class="table">
+              <tr>
+              <th scope="col" class="ranknum">No.</th>
+              <th scope="col">
+                  Name of doctor
+              </th>
+              <th scope="col">Like</th>
+              <th scope="col">Name of rank</th>
+              </tr>
+          <tbody class="table-body">
+            <%var i = 1;
+            var top10 = docs.slice(0, 10);
+            %>
+            <!-- table's row -->
+            <% for(let doc of top3) { %>
+              <% switch (i){
+
+                case(1):  %>
+              <tr class="first-row">
+                <th scope="row">
+                    <i class="fa-solid fa-medal fa-xl" style="color: rgb(227, 219, 0); "></i>
+                    <%= i%>
+                </th>
+                <% break; %>
+
+                <% case(2): %>
+            <tr class="second-row">
+                <th scope="row">
+                    <i class="fa-solid fa-medal fa-xl" style="color: rgb(182, 182, 182);"></i>
+                    <%= i%>
+                </th>
+                <% break; %>
+
+              <% case(3): %>
+              <tr class="third-row">
+                <th scope="row">
+                    <i class="fa-solid fa-medal fa-xl" style="color: rgb(229, 161, 15);"></i>
+                    <%= i%>
+                </th>
+                <% break; %>
+
+                <%default: %>
+              <tr class="table-light">
+                  <th scope="row">
+                      <%= i%>
+                  </th>
+                  <% break; %>
+                <% } %>
+
+                <td >
+                    <div class="img-and-name">
+                        <img class="avatar" src= <%= doc.icon_image!='' ? `/images/${doc.icon_image}` :`/images/default-ava.png` %>>
+                        <div class="badge <%= i==1 ? "alert-warning" : (i==2? "alert-dark": (i==3? "alert-danger": "alert-primary")) %> row-name" style="font-size: 15px;"><%= doc.name%></div>
+                    </div>
+                    <div class="card mini-profile position-absolute" >
+                        <div class="content">
+                            <img class="card-img-top" src= <%= doc.icon_image!='' ? `/images/${doc.icon_image}` :`/images/default-ava.png` %> alt="Card image cap">
+                            <div class="card-body">
+                            <h5 class="card-title">Doctor name: <%= doc.name %> </h5>
+                            <p class="card-text">Phone number: <%=doc.phonenumber%></p>
+                            <% if (doc.email) {%><p class="card-text">Phone number: <%=doc.email%></p> <%}%>
+                            <a href="#" class="badge alert-primary"><%=doc.name_tag%></a>
+                            </div>
+                        </div>
+                        <div class="btngr">
+                            <a href="/controller/chat/<%= doc.name%>" class="btn btn-primary" id="chat">Chat</a>
+                        </div>
+                    </div>
+                </td>
+                <td><%= doc.sum_like%></td>
+                <td><%=doc.name_rank%> </td>
+              </tr>
+
+            
+              <%i++;}%>
+          </tbody>
+          </table>
+        </div>
+      <%}%>
+    </div>
+	</div>
+</div>
+
+
+</tr>
+</body>
+</html>

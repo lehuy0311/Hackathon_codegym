@@ -1,0 +1,58 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .nav-bar{
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            height: 300px;
+            width: 250px;
+        }
+        ul{
+            list-style-type: none;
+            margin: auto;
+            padding: 0;
+            width: 200px;
+            background-color: #ffffff;
+        }
+        ul li{
+            height: 60px;
+            border-bottom: 1px solid rgb(198, 198, 198);
+        }
+        li a {
+            display: table;
+            height: 40px;
+            width: 200px;
+            color: rgb(126, 126, 126);
+            padding: 8px 0 8px 0;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-decoration: none;
+        }
+        /* Change the link color on hover */
+        li a:hover {
+            background-color: #f2f2f2;
+            color: rgb(40, 147, 254);
+            border-right: 10px solid rgb(40, 147, 254);
+        }
+        li a:hover i{
+            color: rgb(40, 147, 254);
+        }
+        .icon {
+            margin-right: 10px;
+        }
+        span{
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar" >
+        <ul>
+            <li><a href="#" class="active"><i class="fa fa-home icon" style="font-size:40px;color:rgb(227, 227, 227)"></i><span style="padding-right: 80px;">Home</span></a></li>
+            <li><a href="#"><i class="fa fa-stethoscope icon" style="font-size:40px;color:rgb(227, 227, 227)"></i><span style="padding-right: 65px;">Bác sĩ</span></a></li>
+            <li><a href="#"><i class="fa fa-user-md icon" style="font-size:40px;color:rgb(227, 227, 227)"></i><span style="padding-right: 35px;">Loại bệnh</span></a></li>
+            <li><a href="#"><i class="fa fa-user icon" style="font-size:40px;color:rgb(227, 227, 227)"></i><span>Trang cá nhân</span></a></li>
+        </ul>
+    </div>
+</body>

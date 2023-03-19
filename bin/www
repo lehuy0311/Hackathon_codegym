@@ -1,0 +1,202 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('cnpm-pbl5:server');
+var http = require('http');
+const socketio = require('socket.io');
+var db = require('../models/model');
+const moment = require('moment');
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+const io = socketio(server);
+
+
+var socketList=[];
+// Set up event listener for incoming connections
+io.on('connection', socket => {
+
+  socket.on("user connected", function({user}){
+    socketList[user] = socket.id
+    console.log(socketList[user])
+  })
+
+  // socketList[] = socket.id;
+  // console.log('User connected');
+
+  // console.log(socket.id)
+  // Emit a test message
+  // socket.emit('test', 'Hello world!');
+
+
+  socket.on("send", function(message){
+
+    var location = message.location
+    db.query(`SELECT * FROM customer WHERE id_user='${message.sender}'`, function(err, data){
+      // socketList[message.receiver] = message.receiver
+      // console.log(message.sender + " đã gửi tin nhắn đến " + message.receiver);
+      io.to(socketList[message.receiver]).emit("receive", {name: data[0].name, time: moment().format("MMMM Do YYYY, h:mm:ss a"), location: location});
+      // "receive", {content: "ét ô ét cứu " + data[0].name + " lúc " + moment().format("MMMM Do YYYY, h:mm:ss a")}
+    })
+  })
+
+
+});
+
+
+// var socketList=[];
+// io.on("connection", (socket) => {
+
+//   socket.on("user connected", function({my, yours}){
+
+//     var mySelf = my;
+//     var initYourSelf = yours;
+//     //console.log(mySelf.name," hehehe with", initYourSelf);
+//     socketList[mySelf.name] = socket.id
+//     // console.log("ID là "+ user.id)
+//     console.log(mySelf.name + " đã kết nối với socket ID là " + socket.id);
+//     console.log("list ", socketList);
+//     console.log(mySelf.ava)
+
+//     db.query(`SELECT * FROM rooms WHERE (person1='${mySelf.name}' AND person2= '${initYourSelf.name}')
+//       OR (person1='${initYourSelf.name}' AND person2='${mySelf.name}')`,
+//       function(err1, data1){
+//         if (err1) throw err1;
+//         if ((data1.length==0) && !(mySelf === initYourSelf)) {
+//           console.log(data1.length);
+//           console.log(!(mySelf === initYourSelf));
+//           var newRoom = {person1: mySelf.name, person2: initYourSelf.name, ava1:mySelf.ava, ava2:initYourSelf.ava ,conversation:'\n'};
+//           console.log(newRoom)
+//           db.query(`INSERT INTO rooms SET ?`, newRoom , function (error, result) {
+//             if (error) throw error;
+//             //console.log(result);
+//           });
+//         }
+//       })
+
+//     db.query(`SELECT * FROM rooms WHERE person1='${mySelf.name}' OR person2='${mySelf.name}'`,
+//     function(err, data){
+//       if (err) throw err;
+//       var user = my;
+//       io.to(socket.id).emit("user connected", {user, data});
+//       console.log("this is my room", data)
+//     })
+
+
+//     // connection.query(`SELECT id_sender AS sender, id_receiver AS receiver,content,DATE_FORMAT(time, "%l:%i %p") AS time FROM message WHERE id_sender = '${user.id}' OR  id_receiver = '${user.id}' `,
+//     //   function (error, result) {
+//     //     if (error) throw error;
+//     //     io.to(socket.id).emit("user connected", {user, result});
+//     //     console.log(result);
+//     //   });
+
+//   })
+
+//   //message{sender, receiver, content}
+//   socket.on("send message", function(message){
+//     var socketID =  socketList[message.receiver]
+//     message.time = moment().format('h:mm a');
+//     var conversation =  `${message.sender}, ${message.time}, ${message.content}\n`;
+//     // console.log(message)
+//     db.query(`SELECT * FROM rooms WHERE (person1='${message.receiver}' AND person2= '${message.sender}') OR (person1='${message.sender}' AND person2='${message.receiver}')`,
+//     function(err, data){
+//       if (err) throw err;
+//       //console.log(data[0])
+//       io.to(socketID).to(socketList[message.sender]).emit("receive message", { cvs: data[0] , content: conversation} )
+//     })
+//     // console.log(x.sql);
+//     console.log("the socketid is" + socketID)
+
+//     //đang bí chỗ update cái trường conversation
+//     var conversation =  `${message.sender}, ${message.time}, ${message.content}\n`;
+//     var dt = {id_sender: message.sender, id_receiver:message.receiver, content: message.content, time: moment().format('YYYY-MM-DD HH:mm:ss a')};
+//     db.query(`UPDATE rooms SET conversation = CONCAT(conversation, '${conversation}') WHERE (person1='${message.receiver}' AND person2= '${message.sender}') OR (person1='${message.sender}' AND person2='${message.receiver}');`,
+//     function (error, result) {
+//       if (error) throw error;
+//     });
+//   })
+// });
+
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}

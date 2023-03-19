@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+        <style>
+    .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    }
+
+    .danger-button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 75px;
+    cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <!-- <button onclick="send()">Button</button> -->
+    <!-- Include the socket.io client library -->
+
+
+
+  <div class="center">
+      <button id="myButton" class="danger-button">SOS</button>
+
+  </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Connect to the server -->
+    <script>
+
+
+    // var latitude = null;
+    // var longitude = null;
+
+
+    var user = '<%=user.id%>';
+    const socket = io.connect();
+
+
+    var latitude
+    var longitude
+    // socket.emit("user connected", {my: mySelf, yours: initYourSelf})
+    // Listen for test messages
+    socket.emit("user connected", {user: user})
+    socket.on('test', message => {
+        console.log(message);
+    });
+    document.getElementById("myButton").onclick = function() {
+
+      if ("geolocation" in navigator) {
+        // Lấy vị trí hiện tại
+        navigator.geolocation.getCurrentPosition(function(position) {
+          // Lấy tọa độ vị trí hiện tại
+          latitude = position.coords.latitude;
+          longitude = position.coords.longitude;
+          // Sử dụng tọa độ để thực hiện các tác vụ khác
+          console.log("Vị trí hiện tại của bạn là: " + latitude + ", " + longitude);
+        });
+      } else {
+        // Trình duyệt không hỗ trợ định vị
+        console.log("Trình duyệt không hỗ trợ định vị");
+      }
+      socket.emit("send", {
+          "sender":user,
+          "receiver":'DR1',
+          "location": {"latitude": latitude, "longitude": longitude}
+      });
+        alert("Bạn đã click vào nút cứu hộ khẩn cấp,bác sĩ sẽ đến ngay bây giờ!");
+        setTimeOut(2000)
+    };
+    // function send(){
+    //     socket.emit("send", {
+    //         "sender":user,
+    //         "receiver":'DR1',
+    //         "content": 'hello',
+    //     });
+    // }
+
+        // Kiểm tra xem trình duyệt có hỗ trợ định vị không
+
+
+
+    </script>
+</body>
+</html>

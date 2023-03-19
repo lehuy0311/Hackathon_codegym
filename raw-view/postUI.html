@@ -1,0 +1,145 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .post{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 500px;
+            border-radius: 10px;
+            background-color: white;
+        }
+        .head{
+            display: flex;
+            border-radius: 10px;
+            padding: 15px;
+            background: white;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .avatar{
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid rgb(184, 184, 184);
+        }
+        .name-profile{
+            display: flex;
+            align-items: center;
+        }
+        .name-title{
+            margin-left: 10px;
+        }
+        .name-title #time-post{
+            color: gray;
+            font-size: 14px;
+        }
+        .icon{
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-align: center;
+        }
+        .icon:hover{
+            background-color: rgb(202, 202, 202);
+        }
+        .svg{
+            margin-top: 10px;
+        }
+        .body{
+            padding: 0 15px 0 15px;
+        }
+        .body #content{
+            font-size: 16px;
+        }
+        .post-images{
+            width: 500px;
+            padding-top: 15px;
+        }
+        .post-images .post-image{
+            width: 470px;
+            height: auto;
+            margin: auto;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+        .btn-icon .cmt{
+            margin: 10px 0 15px 10px;
+        }
+        .left-icon{
+            margin-left: 10px;
+        }
+        form{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .in{
+            background: transparent;
+            border: none;
+            outline: none;
+            margin-left: 15px;
+        }
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        form{
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+        }
+    </style>
+</head>
+<body  style="background-color: rgb(230, 230, 230);">
+    <div class="post">
+        <div class="head">
+            <div class="name-profile">
+                <img src="resources/images/hh.png" class="avatar">
+                <div class="name-title">
+                    <h4 id="name">Tên User</h4>
+                    <p id="time-post">12 th January 2022</p>
+                </div>
+            </div>
+            <div class="icon">
+                <i class="fas fa-ellipsis-h svg"></i>
+            </div>
+        </div>
+        <div class="body">
+            <!-- chèn nội dung vào hoặc để null nếu chỉ có ảnh -->
+            <p id="content">Đây là bài thuốc chữa bách bệnh, trả tiền mua hoặc pay acc</p>
+            <div class="post-images" id="post-images">
+                <!-- bỏ vào for để chèn tất cả các hình của post vào đây -->
+                <img src="resources/images/post-image.jpg" class="post-image">
+            </div>
+            <div class="btn-icon">
+                <div class="left-icon">
+                    <!-- nút like bình thường -->
+                    <i class="fa fa-thumbs-o-up like" style="font-size:30px;color:rgb(95, 143, 255)"></i>
+                    <!-- sau sự kiện clicked -->
+                    <i class="fa fa-thumbs-up liked" style="font-size:30px;color:rgb(95, 143, 255); display:none;"></i>
+
+                    <!-- comment button -->
+                    <i class='far fa-comment-alt cmt' style='font-size:30px;color:rgb(95, 143, 255);'></i>
+                </div>
+            </div>
+            <form>
+                <div class="flex">
+                <img src="resources/images/hh.png" class="avatar">
+                <input type="text" name="" placeholder="Comment..." class="in" style="height: 40px;width:370px;border-radius:6px;background-color:rgb(231, 231, 231);padding-left:10px;">
+                <i class="fa fa-send-o" style="font-size:30px;color:rgb(95, 143, 255);margin-left:10px"></i>
+                </div>
+            </form>
+            <div class="comment-box">
+                <!-- chèn comment vào đây -->
+            </div>
+        </div>
+    </div>
+</body>

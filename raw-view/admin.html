@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Manager Page</title>
+    <!-- css cho cai bang -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <!-- css tu viet -->
+    <link rel="stylesheet" href="../doan/resources/css/doctorList.css">
+    <script src="../doan/resources/js/editProfile.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources/css/quanly.css">
+</head>
+<body>
+    <form name="manager" action="" method="post">
+        <div class="header-nav" style="height: 150px;width: 100%;">
+            <div class="name-page">
+                <h1>User Managerment</h1>
+            </div>
+            <div class="topnav">
+                <a class="active" href="home.html">
+                    <img alt="Home" src="resources/images/home.jpg" width="40" height="40"> 
+                </a>
+                <a class="active" href="profile.html">
+                    <img alt="Admin" src="resources/images/images.png" width="40" height="40">    
+                </a>
+                <a class="active" href="login.html">
+                    <img alt="Logout" src="resources/images/logout.png" width="40" height="40"> 
+                </a>
+            </div>
+        </div>
+        <div class="tab" style="padding-left: 0;width: 100%;background-color:white;">
+            <div class="tab-nav" style="padding-left: 80px;">
+                <div class="tablinks" id="btn-cus" onclick="openCusTab()"><p>Customer</p></div>
+                <div class="tablinks" id="btn-doc" onclick="openDcTab()" ><p>Doctor</p></div>
+            </div>
+                <div id="customer-tab" class="tabcontent" style="display:block;">
+                    <input type="text" id="myInput1" onkeyup="myFunction('myInput1','cusTable')" placeholder="Search for.." title="Type in a name">
+                    <table id='cusTable' class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="text-center">Customer name</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Gender</th>
+                                    <th class="text-center">Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- lấy dữ liệu từ controller, bỏ vào for hoặc while để in ra toàn bộ -->
+                                <!-- vd thay doi theo cot ben duoi:
+                                    for(....){
+                                        var i=1;
+                                        <tr>
+                                            <td><p>i</p></td>
+                                            <td><img src="obj.image" alt="img" width="50px" height="50px" onclick="showMiniProfile()">obj.name</td>
+                                            <td>1 neu true hoac de checkbox</td>
+                                            <td><p>obj.phone</p></td>
+                                            <td> list a </a>
+                                        </tr>
+                                        i++;
+                                    } -->
+                              <tr>
+                                <td><p id="col">1</p></td>
+                                <td><p id="col-img"><img src="../doan/resources/images/man1.png" alt="img" width="50px" height="50px" onclick="showMiniProfile()">Doe</p></td>     
+                                <td><p>123@gmail.com</p></td>
+                                <td><p>1</p></td>
+                                <td><p id="col">0111123232</p></td>
+                              </tr>
+                              <tr>
+                                <td><p id="col">2</p></td>
+                                <td><p id="col-img"><img src="../doan/resources/images/man2.png" alt="img" width="50px" height="50px" onclick="showMiniProfile()">Moe</p></td>
+                                <td><p>123@gmail.com</p></td>
+                                <td><p>0</p></td>
+                                <td><p id="col">0363232132</p></td>
+                              </tr>
+                              <tr>
+                                <td><p id="col">3</p></td>
+                                <td><p id="col-img"><img src="../doan/resources/images/man3.png" alt="img" width="50px" height="50px" onclick="showMiniProfile()">Dooley</p></td>
+                                <td><p>123@gmail.com</p></td>
+                                <td><p>0</p></td>
+                                <td><p id="col">0923231231</p></td>
+                              </tr>
+                          </tbody>
+                    </table>
+                </div>
+                <div id="doctor-tab" class="tabcontent" style="display: none;">
+                    <input type="text" id="myInput2" onkeyup="myFunction('myInput2','docTable')" placeholder="Search for.." title="Type in a name">
+                    <table id='docTable' class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="text-center">Doctor name</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Phone</th>
+                                    <th class="text-center">Checked</th>
+                                    <th class="text-center">Specialized</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                  <!-- lấy dữ liệu từ controller, bỏ vào for hoặc while để in ra toàn bộ -->
+                                  <!-- vd thay doi theo cot ben duoi:
+                                      for(....){
+                                          var i=1;
+                                          <tr>
+                                              <td><p>i</p></td>
+                                              <td><img src="obj.image" alt="img" width="50px" height="50px" onclick="showMiniProfile()">obj.name</td>
+                                              <td>1 neu true hoac de checkbox</td>
+                                              <td><p>obj.phone</p></td>
+                                              <td> list a </a>
+                                          </tr>
+                                          i++;
+                                      } -->
+                                <tr>
+                                  <td><p id="col">1</p></td>
+                                  <td><p id="col-img"><img src="../doan/resources/images/man1.png" alt="img" width="50px" height="50px" onclick="showMiniProfile()">Doe</p></td>
+                                  <td><p>123@gmail.com</p></td>
+                                  <td><p id="col">0111123232</p></td>
+                                  <td><p>1</p></td>
+                                  <td><p><a>tim mach</a>,<a>Noi khoa</a></p></td>
+                                </tr>
+                                <tr>
+                                  <td><p id="col">2</p></td>
+                                  <td><p id="col-img"><img src="../doan/resources/images/man2.png" alt="img" width="50px" height="50px" onclick="showMiniProfile()">Moe</p></td>
+                                  <td><p>123@gmail.com</p></td>
+                                  <td><p id="col">0363232132</p></td>
+                                  <td><p>0</p></td>
+                                  <td><p><a>tim mach</a>,<a>Noi khoa</a></p></td>
+                                </tr>
+                                <tr>
+                                  <td><p id="col">3</p></td>
+                                  <td><p id="col-img"><img src="../doan/resources/images/man3.png" alt="img" width="50px" height="50px" onclick="showMiniProfile()">Dooley</p></td>
+                                  <td><p>123@gmail.com</p></td>
+                                  <td><p id="col">0923231231</p></td>
+                                  <td><p>0</p></td>
+                                  <td><p><a>tim mach</a>,<a>Noi khoa</a></p></td>
+                                </tr>
+                            </tbody>
+                    </table>
+                </div>
+        </div>
+        <script language="javascript" type="text/javascript">
+            function openCusTab(){
+                document.getElementById("customer-tab").style.display='block';
+                document.getElementById("doctor-tab").style.display='none';
+                document.getElementById("btn-cus").style.backgroundColor='rgb(95, 143, 255)';
+                document.getElementById("btn-doc").style.backgroundColor='rgb(234, 234, 234)';
+            }
+            function openDcTab(){
+                document.getElementById("customer-tab").style.display='none';
+                document.getElementById("doctor-tab").style.display='block';
+                document.getElementById("btn-cus").style.backgroundColor='rgb(234, 234, 234)';
+                document.getElementById("btn-doc").style.backgroundColor='rgb(95, 143, 255)';
+            }
+            function myFunction(myInput,myTable) {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById(myInput);
+                filter = input.value.toUpperCase();
+                table = document.getElementById(myTable);
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                  td = tr[i].getElementsByTagName("td")[0];
+                  if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                      tr[i].style.display = "";
+                    } else {
+                      tr[i].style.display = "none";
+                    }
+                  }       
+                }
+            }
+        </script>
+    </form>
+</body>
+</html>

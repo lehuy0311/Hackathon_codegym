@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dr list</title>
+        <link rel="shortcut icon" href="../doan/resources/images/logo.png">
+        <!--  -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Radio+Canada&display=swap" rel="stylesheet">
+        <!--  -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+        <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <!--  -->
+        <link rel="stylesheet" href="../doan/resources/css/doctorList.css">
+        <script src="../doan/resources/js/editProfile.js"></script>
+
+    </head>
+    <body>
+        <form action="" method="post" name="dr-list">
+            <div class="dr__list">
+                <h1>List Doctor Followed</h1>
+                <div class="dr__list__table">
+                    <table id="DrTable" class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Họ và tên</th>
+                            <th>Số điện thoại</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <!-- lấy dữ liệu từ controller, bỏ vào for hoặc while để in ra toàn bộ -->
+                            <!-- vd:
+                                for(....){
+                                    var i=1;
+                                    <tr>
+                                        <td><p>i</p></td>
+                                        <td><img src="obj.image" alt="img" width="50px" height="50px" onclick="showMiniProfile()">obj.name</td>
+                                        <td><p>obj.phone</p></td>
+                                    </tr>
+                                    i++;
+                                } -->
+                          <tr>
+                            <td><p id="col">1</p></td>
+                            <td><p id="col-img"><img src="../doan/resources/images/man1.png" alt="img" width="50px" height="50px" onclick="showMiniProfile()">Doe</p></td>
+                            <td><p id="col">0111123232</p></td>
+                          </tr>
+                          <tr>
+                            <td><p id="col">2</p></td>
+                            <td><p id="col-img"><img src="../doan/resources/images/man2.png" alt="img" width="50px" height="50px" onclick="showMiniProfile()">Moe</p></td>
+                            <td><p id="col">0363232132</p></td>
+                          </tr>
+                          <tr>
+                            <td><p id="col">3</p></td>
+                            <td><p id="col-img"><img src="../doan/resources/images/man3.png" alt="img" width="50px" height="50px" onclick="showMiniProfile()">Dooley</p></td>
+                            <td><p id="col">0923231231</p></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </body>
+    <script>
+        $(document).ready(function(){
+            $('#DrTable').dataTable();
+        });
+    </script>
+</html>
+</html>

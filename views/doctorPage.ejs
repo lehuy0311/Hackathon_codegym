@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>this is doctor's page</div>
+    <div id="patient-noti"></div>
+
+    <!-- Include the socket.io client library -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var user = '<%=user.id%>';
+        const socket = io.connect();
+        socket.emit("user connected", {user: user})
+        socket.on("receive",function({name, time}){
+            //console.log(cvs);
+            // console.log("lalala",messages);
+
+            //phát ra âm thanh thông báo
+
+            //đường dẫn tới file messenger_sound.mp3    
+
+            var notificationSound = new Audio('/sound/messenger_sound.mp3');
+            notificationSound.play();
+
+    
+            //hiển thị thông báo cho bác sĩ
+            var html = `<div>Thông báo: Bệnh nhân: ${name}, Sinh năm:2000, Địa chỉ:bla bla, Tình trạng: bruh bruh, Lúc: ${time}</div>`
+            var notification = document.createElement('noti');
+            notification.innerHTML = html;
+            var patient_noti = document.querySelector("#patient-noti")
+            patient_noti.insertBefore(notification, patient_noti.firstChild) //message{id, per1, per2, conversation}
+            console.log(content)
+            //console.log("cười cho đỡ nhục ", messages)
+            // đổi message cho hợp với myconvetsation trong hàm này là ok =(())
+        })
+    </script>
+</body>
+</html>

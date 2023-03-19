@@ -1,0 +1,248 @@
+<meta charset="utf-8">
+<title>My Profile</title>
+<link rel="shortcut icon" href="/images/logo.png">
+<link rel="stylesheet" href="/css/myProfile.css">
+<!--  -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Radio+Canada&display=swap" rel="stylesheet">
+<!--  -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--  -->
+<script src="/js/editProfile.js"></script>
+<link rel="stylesheet" href="/css/editProfile.css">
+<script src="/js/editProfile.js"></script>
+<style>
+    body{
+      background-image: linear-gradient(0deg, rgba(255,255,86,0), rgba(255,255,86,1) 90%);
+      background-repeat: no-repeat;
+      height: auto;
+    }
+    .tablinks{
+        cursor: pointer;
+        text-align: center;
+        height: 50px;
+        width: 100px;
+    }
+    .main .main__nav__btn .tablinks:hover{
+        background-color: rgb(95, 143, 255);
+        color: white;
+    }
+    .tablinks .main__nav__dr p{
+        color: rgb(133, 133, 133);
+        background-color: white;
+        font-size: 20px;
+        text-align: left;
+        padding-left: 50px;
+        font-family: 'Radio Canada', sans-serif;
+    }
+    .main__nav #main__nav__chat {
+        width: 230px;
+        color: rgb(133, 133, 133);
+        background-color: white;
+        font-size: 20px;
+        text-align: left;
+        padding-left: 50px;
+        font-family: 'Radio Canada', sans-serif;
+    }
+    .main__nav #main__nav__post {
+        width: 230px;
+        color: rgb(133, 133, 133);
+        background-color: white;
+        font-size: 20px;
+        text-align: left;
+        padding-left: 50px;
+        font-family: 'Radio Canada', sans-serif;
+    }
+    .dr-tab .author-content p{
+        color: rgb(133, 133, 133);
+        background-color: white;
+        font-size: 20px;
+        text-align: left;
+        padding-left: 50px;
+        font-family: 'Radio Canada', sans-serif;
+    }
+</style>
+<header>
+    <div class="head">
+        <div class="head__title">
+            <h1 id="head__title--descreption" style="font-family: 'Radio Canada', sans-serif;">My Profile</h1>
+        </div>
+    </div>
+</header>
+<body>
+    <img class="bg-img" src="https://cdn.sanity.io/images/0vv8moc6/medec/17907949b2d1d0f89f9f012a9f5d5ecd1591e5e0-1500x996.jpg" style="opacity: 0.3;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;">
+    <div class="main">
+        <div class="main__nav">
+            <div class="main__nav__btn">
+                <img src="/images/editLogo.png"  style="margin-left: 20px;"alt="edit_image" width="50px" height="50px">
+                <div class="tablinks" id="main__nav__edit" onclick="openProfileTab()"><p style="margin-bottom: 0px;margin-top: 10px;">Edit Profile</p></div>
+            </div>
+            <div id="main__nav__line"></div>
+            <div class="main__nav__btn">
+                <img src="/images/chat.png" style="margin-left: 20px;" alt="edit_image" width="50px" height="50px">
+                <div class="tablinks" id="main__nav__chat" onclick="openChatTab()">
+                    <p style="margin-bottom: 0px;margin-top: 10px;">Messages</p>
+                </div>
+            </div>
+            <div id="main__nav__line"></div>
+            <div class="main__nav__btn">
+                <img src="/images/authority.png" style="margin-left: 20px;" alt="edit_image" width="50px" height="50px">
+                <div class="tablinks" id="main__nav__dr" onclick="openDrTab()"><p style="margin-bottom: 0px;margin-top: 10px;">Raise Doctor</p></div>
+            </div>
+            <div id="main__nav__line"></div>
+        </div>
+        <div class="main__line"></div>
+    
+        <% var isDoctor = Number(localStorage.getItem('isDoctor')); %>
+        <!-- edit profile tab -->
+        <div class="profile-tab" id="profile-tab" style="position: absolute;margin-top: 10px;width: 940px;height:auto;left: 50%;top: 50%;margin-left: -27%;margin-top: -16%;">
+            <form action="/controller/editProfile" method="post" name="edit-profile">
+                <div class="profile">
+                    <div class="profile__img" style="margin-top: 40px;">
+                        <label class="-label" for="file">
+                          <span class="glyphicon glyphicon-camera"></span>
+                          <span>Change Image</span>
+                        </label>
+                        <input id="file" name="imgDoc" type="file" onchange="loadFile(event)"/>
+                        <img src="/images/<%= user.icon_image=='' ? `default-ava.png` : user.icon_image %> " id="output" width="200px" height="200px"/>
+                    </div>
+                    <div class="profile__content profile__name">
+                        <table id="profile__name">
+                            <tr>
+                                <th ><label for="username" class="title__content" id="username">Username</label></th>
+                            </tr>
+                            <tr>
+                                <th ><input type="text" id="username" name="username" value="<%= user.name %> "></th>
+                             </tr>
+                        </table>
+                    </div>
+                    <div class="profile__content profile__email">
+                        <table id="profile__email">
+                            <tr>
+                                <th ><label for="email" class="title__content" id="email">Email</label></th>
+                            </tr>
+                            <tr>
+                                <th ><input type="text" id="email" name="email" value="<%= user.email %> "></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="profile__content profile__contact">
+                        <table id="profile__contact">
+                            <tr>
+                                <th ><label for="contact" class="title__content" id="contact">Số điện thoại</label></th>
+                            </tr>
+                            <tr>
+                                <th ><input type="text" id="contact" name="contact" value="<%= user.phonenumber %> "></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="profile__content profile__pass">
+                        <table id="profile__pass">
+                            <tr>
+                                <th ><label for="pass" class="title__content" id="pass">Mật khẩu</label></th>
+                            </tr>
+                            <tr>
+                                <th><input type="password" id="pass__field" name="pass" style="margin-left: 40px;" value="<%= user.password %> ">
+                                <i id="pass-status" class="fa fa-eye" aria-hidden="true" onClick="viewPassword()"></i>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                    <% if(isDoctor){ %>
+                    <!-- show nếu là bác sĩ, bth để hide -->
+                    <div class="profile__content profile__tag">
+                        <table id="profile__tag" style="margin-right: 0;">
+                            <tr>
+                                <th ><label for="tag" class="title__content" id="tag">Chuyên khoa</label></th>
+                                <th ><label for="check" class="title__content" id="check" style="margin-left: 50px;">Check</label></th>
+                                <th ><label for="rank" class="title__content" id="rank" style="margin-left: 50px;">Rank</label></th>
+                            </tr>
+                            <tr>
+                                <th >
+                                    <!-- Lấy danh sách tag rồi bỏ vào for in ở đây -->
+                                    <div id="tag-dr">
+                                        <p><%= user.name_tag %> </p>
+                                    </div>
+                                </th>
+                                <th ><input type="text" id="check" name="check" style="margin-left: 50px;" value="<%= user.dr_high==1 ? "High" : "Common"%>"></th>
+                                <th ><input type="text" id="rank" name="rank" style="margin-left: 50px;" value="<%= (user.id_rank<11 && user.id_rank>0) ? user.name_rank : "No rank" %> "></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <% } %>
+                    <div class="profile__content">
+                        <input id="save" type="submit" value="SAVE">
+                    </div>
+                    <div class="footer"></div>
+                </div>
+            </form>
+        </div>
+        <% if(isDoctor){ %>
+        <div class="dr-tab" id="dr-tab" style="display:none;position: absolute;margin-top: 10px;height:400px;width: 940px;left: 50%;top: 50%;margin-left: -27%;margin-top: -14%;">
+            <div class="author-content" style="display:flex;justify-content: center;align-items: center;margin-top: 100px;margin-left:100px;">
+                <!-- dr_high=0 chưa là dr cao cấp, =1 ngược lại, dr_author=0 chưa gửi yêu cầu nâng quyền, =1 ngược lại -->
+                <% if(user.dr_high==0 && user.want_high==0) {%>
+                    <p>Bạn chưa là bác sĩ cao cấp. Muốn nâng quyền?</p>
+                    <input type="submit" class="btn btn-primary" value="Authority" style="margin-left: 50px;">
+                <% }else if(user.dr_high==0 && user.want_high==1) {%>
+                    <p>Đang đợi xử lý nâng quyền. Muốn từ bỏ?</p>
+                    <input type="submit" class="btn btn-warning" value="Cancel" style="margin-left: 50px;">
+                <% }else{ %>
+                    <p>Đang là quyền bác sĩ cao cấp. Muốn hạ quyền?</p>
+                    <input type="submit" class="btn btn-success" value="De Authority" style="margin-left: 50px;">
+                <% } %>
+            </div>
+        </div>
+        <% } %>
+        <!-- List message -->
+        <div class="list-mess-tab" id="list-mess-tab" style="display:none;position: absolute;margin-top: 10px;width: 940px;height:auto;left: 50%;top: 53%;margin-left: -27%;margin-top: -16%;">
+            <!-- Code here -->
+    
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        function openProfileTab(){
+            document.getElementById("profile-tab").style.display='block';
+            document.getElementById("dr-tab").style.display='none';
+            document.getElementById("main__nav__edit").style.backgroundColor='rgb(95, 143, 255)';
+            document.getElementById("main__nav__edit").style.color='white';
+            document.getElementById("main__nav__dr").style.backgroundColor='white';
+            document.getElementById("main__nav__dr").style.color='rgb(133, 133, 133)';
+        }
+        function openChatTab() {
+            document.getElementById("list-mess-tab").style.display = 'block;';
+            document.getElementById("profile-tab").style.display = 'none;';
+            document.getElementById("dr-tab").style.display = 'none;';
+            document.getElementById("list-post-tab").style.display = 'none;';
+            document.getElementById("main__nav__chat").style.backgroundColor = 'rgb(95, 143, 255)';
+            document.getElementById("main__nav__chat").style.color = 'white';
+            document.getElementById("main__nav__dr").style.backgroundColor = 'white';
+            document.getElementById("main__nav__dr").style.color = 'rgb(133, 133, 133)';
+            document.getElementById("main__nav__edit").style.backgroundColor = 'white';
+            document.getElementById("main__nav__edit").style.color = 'rgb(133, 133, 133)';
+            document.getElementById("main__nav__post").style.backgroundColor = 'white';
+            document.getElementById("main__nav__post").style.color = 'rgb(133, 133, 133)';
+        }
+        function openDrTab(){
+            document.getElementById("profile-tab").style.display='none';
+            document.getElementById("dr-tab").style.display='block';
+            document.getElementById("main__nav__edit").style.backgroundColor='white';
+            document.getElementById("main__nav__edit").style.color='rgb(133, 133, 133)';
+            document.getElementById("main__nav__dr").style.backgroundColor='rgb(95, 143, 255)';
+            document.getElementById("main__nav__dr").style.color='white';
+        }
+    </script>
+</body>
+

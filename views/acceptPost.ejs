@@ -1,0 +1,87 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style media="screen">
+  body{
+    background-image: linear-gradient(to bottom right, rgba(212,237,149,1),  rgba(237,229,125,0));
+  }
+  .content .more-text{
+    display: none;
+  }
+  .content .read-less{
+      display: none;
+  }
+</style>
+
+<div class="list-post" style="height:auto; width:800px;margin-left: 300px;margin-top: 20px;">
+    <!-- hiển thị lần lượt từng bài viết trong listpost -->
+    <!-- select icon image, name của doctor viết bài; id, time, title, content, image_path của bảng pre_post -->
+    <% if(listpost) {%>
+    <% for(let post of listpost) { %>
+    <form name="post-id-<%= post.id_prepost %> " action="/controller/solveAccept" method="post">
+        <div class="posts" style="width: 600px;border-radius: 10px;background-color: white;">
+            <div class="head" style="display: flex;border-radius: 10px;padding: 15px;background: white;align-items: center;justify-content: space-between;">
+                <div class="name-profile" style="display: flex;align-items: center;">
+                    <img src="/images/<%= post.icon_image %> " class="avatar" style="width: 40px;height: 40px;border-radius: 5px;border: 1px solid rgb(184, 184, 184);">
+                    <div class="name-title" style="margin-left: 10px;">
+                        <h4 id="name" style="margin-bottom: 0px;"><%= post.name %> </h4>
+                        <p id="time-post" style="color: gray;font-size: 14px;"><%= post.time %> </p>
+                    </div>
+                </div>
+            </div>
+            <div class="body" style="padding: 0 15px 10px 15px;">
+                <a href="#" style="font-size: 30px;text-decoration:none;color:black;cursor:pointer;"><%= post.title %> </a>
+                <!-- chèn nội dung vào hoặc để null nếu chỉ có ảnh -->
+                <p class="content" style="font-size: 16px;"><%= post.content %> </p>
+                <div class="post-images" id="post-images" style="padding-top: 15px;">
+                  <%if(post.image_path){%>
+                    <img src="/images/<%= post.image_path %> " class="post-image" style="width: 570px;height: auto;border-radius: 10px;margin-bottom: 5px;">
+                    <%}%>
+                </div>
+                <div class="btn-icon" style="margin-top: 20px;">
+                    <div class="left-icon" style="display: flex;">
+                        <button class="btn btn-primary" id="btn-accept" type="submit" name="accept" value="<%= post.id_prepost%>">Accept</button>
+                        <a class="btn btn-warning" href='/controller/delPost/<%= post.id_prepost%>' style="margin-left: 5px;">Delete</a>
+                        <!-- <input class="btn btn-warning" id="btn-delete" type="button" value="Delete"> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <% } }else{%>
+        <h2 style="text-align: center;color:rgb(28, 111, 255);font-size:40px;">Hiện tại không có bài viết mới. Trở lại sau</h2>
+        <% } %>
+</div>
+
+
+<!-- javascript cho xem thêm và thu gọn -->
+<script>
+  $(document).ready(function(){
+    var maxLength = 300;
+    $(".content").each(function(){
+        var myStr = $(this).text();
+        if($.trim(myStr).length > maxLength){
+            var newStr = myStr.substring(0, maxLength);
+            var removedStr = myStr.substring(maxLength, myStr.length);
+            $(this).empty().html(newStr);
+            $(this).append(' <a href="javascript:void(0);" class="read-more badge rounded-pill text-bg-primary">Xem thêm...</a>');
+            $(this).append('<span class="more-text">' + removedStr + '</span>');
+            $(this).append('<a href="#" class="read-less badge rounded-pill text-bg-primary"> Thu gọn</a>');
+        }
+    });
+    $(".read-more").click(function(){
+        $(this).siblings().slideToggle(200);
+        $(this).hide();
+    });
+    $(".read-less").click(function(){
+        $(this).siblings().slideToggle(200);
+        $(this).hide();
+    });
+});
+</script>

@@ -1,0 +1,68 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+    body{
+        background-image: linear-gradient(to bottom right, rgba(9,191,237,1),  rgba(9,191,237,0));
+    }
+    .container{
+        position: absolute;
+        top:50%;
+        left: 50%;
+        margin-top: -250px;
+        margin-left: -500px;
+        width: 1000px;
+        min-height: 200px;
+        background-color: white;
+        border-radius: 10px;
+    }
+    h1{
+        text-align: center;
+    }
+    .list-tag{
+        display: flex;
+        width: 100%;
+        height: auto;
+        padding: 40px 50px 10px 50px;
+    }
+    .row-tag{
+        display: flex;
+    }
+    .badge{
+        background-color: rgb(7, 116, 240);
+        height: 40px;
+        width: auto;
+        font-size: 20px;
+        padding-top: 10px;
+        margin: 10px 20px 10px 20px;
+    }
+</style>
+<body>
+    <img class="bg-img" src="https://cdn.sanity.io/images/0vv8moc6/medec/17907949b2d1d0f89f9f012a9f5d5ecd1591e5e0-1500x996.jpg" style="opacity: 0.3;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;">
+    <div class="wrapper">
+        <div class="container">
+            <h1>Danh sách chuyên ngành</h1>
+            <div class="list-tag">
+                <div class="row-tag">
+                    <div class="tag">
+                        <% for(let tag of tags) { %>
+                            <a href="/controller/postTag/<%= tag.id_tag %> " class="badge badge-primary"><%= tag.name_tag %> </a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

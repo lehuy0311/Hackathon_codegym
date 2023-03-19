@@ -1,0 +1,124 @@
+@font-face {
+    font-family: FuturaStd;
+    src: url(/PBL5/font/FuturaStd-Medium.otf);
+  }
+body{
+    padding: 0;
+    margin: 0;
+}
+.header-nav{
+    background-color: rgb(95, 143, 255);
+}
+.name-page{
+    position: absolute;
+    left: 0px;
+    padding: 40px 0 0 100px;
+}
+.name-page h1{
+    font-size: 40px;
+    font-family: FuturaStd;
+}
+.topnav{
+    position: absolute;
+    right: 0px;
+    padding: 20px 100px 0 0;
+}
+.topnav a{
+    text-decoration: none;
+}
+.topnav img{
+    border-radius: 50%;
+    background-color: #01cb63
+}
+.topnav .active{
+    padding-left: 20px;
+}
+.tab {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border: 0px;
+    background-color: rgb(255, 255, 255);
+}
+.tab-nav{
+    display: flex;
+    height: 50px;
+    width: 100%;
+    padding-left: 80px;
+    background-color: rgb(234, 234, 234);
+}
+.tablinks{
+    cursor: pointer;
+    text-align: center;
+    height: 50px;
+    width: 100px;
+}
+.tablinks:hover{
+    background-color: rgb(95, 143, 255);
+}
+.tab-nav .tablinks p{
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.tabcontent{
+    display: none;
+}
+.tab-nav button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    width: 100px;
+    height: 50px;
+    color: rgb(182, 180, 180);
+}
+.tab-nav button:hover {
+    background-color: white;
+    color: black;
+}
+.tab-nav button.active {
+    background-color: white;
+    color: black;
+}
+.tabcontent th{
+    text-align: center;
+}
+#cusTable td p{
+    text-align: center;
+}
+#docTable td p{
+    text-align: center;
+}
+#customer-tab{
+    position: absolute;
+    top: 50%;
+    margin-top: -60px;
+    left: 50%;
+    margin-left: -610px;
+    width: 100%;
+    height: auto;
+}
+#myInput {
+    background-image: url('/css/searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 300px;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+#doctor-tab{
+    position: absolute;
+    top: 50%;
+    margin-top: -60px;
+    left: 50%;
+    margin-left: -610px;
+    width: 100%;
+    height: auto;
+}

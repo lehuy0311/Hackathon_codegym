@@ -1,0 +1,133 @@
+<meta charset="utf-8" />
+<title>Manager Page</title>
+<!-- css cho cai bang -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/7c97a72e23.js" crossorigin="anonymous"></script>
+<!-- css tu viet -->
+<link rel="stylesheet" href="/css/doctorList.css">
+
+<script src="/js/editProfile.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/quanly.css">
+
+
+<form name="manager" action="/controller/" method="get">
+    <div class="header-nav" style="height: 150px;width: 100%;">
+        <div class="name-page">
+            <h1>User Management</h1>
+        </div>
+        <div class="topnav">
+            <!-- đặt tên controller là home, router là main -->
+            <button><a class="active" href="/controller/mainForm" style="padding-left: 10px;">HOME</a></button>
+            <!-- đặt tên controller là admin, router là addNewDoctor, đổi lại theo tên nếu đã đặt -->
+            <button><a class="active" href="/controller/addNewDoc" style="padding-left: 0px;">Thêm Bác sĩ</a></button>
+            <button><a class="active" href="/controller/DocRespon" style="padding-left: 0px;">Trao quyền</a></button>
+        </div>
+    </div>
+    <div class="tab" style="padding-left: 0;width: 100%;background-color:white;">
+        <div class="tab-nav" style="padding-left: 80px;">
+            <div class="tablinks" id="btn-cus" onclick="openCusTab()"><p>Customer</p></div>
+            <div class="tablinks" id="btn-doc" onclick="openDcTab()" ><p>Doctor</p></div>
+        </div>
+        <div id="customer-tab" class="tabcontent" style="display:block;">
+            <input type="text" id="myInput1" placeholder="Search for customer.." title="Type in a name">
+            <table id='cusTable' class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th class="text-left">Customer name</th>
+                        <th class="text-left">Phone</th>
+                        <th class="text-left">Email</th>
+                        <th class="text-left">Xem chi tiết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- lấy dữ liệu từ controller, bỏ vào for hoặc while để in ra toàn bộ -->
+                    <%  let i=1; %>
+                    <%  for(let cus of cusList){ %>
+                            <tr>
+                                <td><%= i %></td>
+                                <td><%= cus.name %></td>
+                                <td><%= cus.phonenumber %> </td>
+                                <td><%= cus.email %> </td>
+                                <!-- tạo controller profile với router /customer/:id -->
+                                <td>
+                                  <a class="fa-solid fa-circle-info fa-2x" style="text-decoration:none;" href="/controller/customer/<%= cus.id_user %>">
+                                </td>
+                            </tr>
+                    <% i++; } %>
+                </tbody>
+            </table>
+        </div>
+        <div id="doctor-tab" class="tabcontent" style="display: none;">
+            <input type="text" id="myInput2" placeholder="Search for doctor.." title="Type in a name">
+            <table id='docTable' class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th class="text-left">Doctor name</th>
+                        <th class="text-left">Phone</th>
+                        <th class="text-left">Email</th>
+                        <th class="text-left">Checked</th>
+                        <th class="text-left">Specialized</th>
+                        <th class="text-left">Rank</th>
+                        <th class="text-left">Xem chi tiết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- lấy dữ liệu id, name, phone, email, dr_high,name_tag, rank từ 3 bảng doctor, tag, rank -->
+                    <%  let ind=1; %>
+                    <%  for(let doc of docList){ %>
+                            <tr>
+                                <td><%= ind %> </td>
+                                <td><%= doc.name  %></td>
+                                <td><%= doc.phonenumber %></td>
+                                <td><%= doc.email %></td>
+                                <td><%= doc.dr_high==1 ? "Check" : "No Check"%> </td>
+                                <td><%= doc.name_tag %></td>
+                                <td><%= doc.name_rank %></td>
+                                <td><a class="fa-solid fa-circle-info fa-2x" style="text-decoration:none;" href="/controller/doctor/<%= doc.id_dr %>"></td>
+                            </tr>
+                    <% ind++; } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+<script language="javascript" type="text/javascript">
+    function openCusTab(){
+        document.getElementById("customer-tab").style.display='block';
+        document.getElementById("doctor-tab").style.display='none';
+        document.getElementById("btn-cus").style.backgroundColor='rgb(95, 143, 255)';
+        document.getElementById("btn-doc").style.backgroundColor='rgb(234, 234, 234)';
+    }
+    function openDcTab(){
+        document.getElementById("customer-tab").style.display='none';
+        document.getElementById("doctor-tab").style.display='block';
+        document.getElementById("btn-cus").style.backgroundColor='rgb(234, 234, 234)';
+        document.getElementById("btn-doc").style.backgroundColor='rgb(95, 143, 255)';
+    }
+
+    var $rows1 = $('#cusTable tbody tr');
+    $('#myInput1').keyup(function() {
+    var val1 = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    $rows1.show().filter(function() {
+    var text1 = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+    return !~text1.indexOf(val1);
+    }).hide();
+    });
+
+    var $rows2 = $('#docTable tbody tr');
+    $('#myInput2').keyup(function() {
+    var val2 = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    $rows2.show().filter(function() {
+    var text2 = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+    return !~text2.indexOf(val2);
+    }).hide();
+    });
+</script>

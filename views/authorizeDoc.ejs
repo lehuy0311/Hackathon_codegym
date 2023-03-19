@@ -1,0 +1,60 @@
+<meta charset="utf-8" />
+<title>Add Doctor Page</title>
+<!-- css cho cai bang -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- css tu viet -->
+<link rel="stylesheet" href="/css/doctorList.css">
+<script src="/js/editProfile.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/quanly.css">
+
+<form name="authorize" action="/controller/storeAuthorDoc" method="post">
+    <div class="header-nav" style="height: 150px;width: 100%;">
+        <div class="name-page">
+            <h1>List of authorize doctors</h1>
+        </div>
+    </div>
+    <div class="tab" style="padding-left: 0;width: 100%;background-color:white;">
+        <div id="doctor-tab" class="tabcontent" style="display: block;">
+            <input type="text" id="myInput2" placeholder="Search for doctor.." title="Type in a name">
+            <table id='docTable' class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th class="text-left">Doctor name</th>
+                        <th class="text-left">Phone</th>
+                        <th class="text-left">Email</th>
+                        <th class="text-left">Specialized</th>
+                        <th class="text-left">Rank</th>
+                        <th class="text-left">Auth</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- lấy dữ liệu id, name, phone, email, dr_high,name_tag, rank từ 3 bảng doctor, tag, rank -->
+                    <%  let i=1; %>
+                    <%  for(let doc of docList){ %>
+                            <tr>
+                                <td><%= i %> </td>
+                                <td><%= doc.name  %></td>
+                                <td><%= doc.phonenumber %></td>
+                                <td><%= doc.email %></td>
+                                <td><%= doc.id_tag %></td>
+                                <td><%= doc.id_rank %> </td>
+                                <td>
+
+                                  <button type="submit" class="btn btn-primary" id="btn-authorize" style="height: 40px;width:60px;" name="authorize" value="<%= doc.id_dr  %>">Authorized</button>
+                                  </td>
+                            </tr>
+                    <%
+                            i++;
+                        }
+                    %>
+                </tbody>
+            </table>
+        </div>
+</form>

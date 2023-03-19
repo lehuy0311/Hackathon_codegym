@@ -1,0 +1,158 @@
+body{
+    padding-top: 30px;
+}
+
+/*title*/
+.profile #profile__title{
+    font-family: 'Radio Canada', sans-serif;
+    color: rgb(119, 119, 119);
+    padding-left: 50px;
+    padding-bottom: 20px;
+    font-size: 50px;
+}
+
+/*profile image*/
+.profile__img {
+    color: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+.profile__img input {
+    display: none;
+}
+.profile__img img {
+    position: absolute;
+    object-fit: cover;
+    width: 165px;
+    height: 165px;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, .35);
+    border-radius: 100px;
+    border: 1px solid rgb(4,100,252);
+    z-index: 0;
+}
+.profile__img .-label {
+    cursor: pointer;
+    margin: 0;
+    height: 165px;
+    width: 165px;
+}
+.profile__img:hover .-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.8);
+    z-index: 10000;
+    color: #fafafa;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 100px;
+    margin-bottom: 0;
+}
+.profile__img span {
+    display: inline-flex;
+    padding: 0.2em;
+    height: 2em;
+}
+
+/*main*/
+
+/*name*/
+.profile__content{
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+#profile__name{
+    align-self: center;
+}
+.profile__name #fname {
+    margin-left: 30px;
+}
+/*box title*/
+.profile__content .title__content{
+    font-size: 20px;
+    color: rgb(143, 143, 143);
+    font-family: 'Radio Canada', sans-serif;
+}
+/*box*/
+.profile__content input{
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding-left: 10px;
+    border: 2px solid rgb(74, 142, 253);
+    border-radius: 5px;
+}
+
+.profile__name #profile__name input:focus {
+    border: 2px solid rgb(74, 142, 253);
+}
+/*mail*/
+.profile__email #profile__email input{
+    width: 430px;
+}
+.profile__contact #profile__contact input{
+    width: 300px;
+}
+/* contact and gender*/
+.profile__contact #gender{
+    margin-left: 50px;
+}
+.profile__contact select{
+    border: 2px solid rgb(74, 142, 253);
+    border-radius: 5px;
+    height: 40px;
+    width: 80px;
+    font-size: 15px;
+}
+/*address*/
+.profile__address #profile__address input{
+    width: 430px;
+}
+/*password*/
+.profile__pass #profile__pass input{
+    width: 430px;
+}
+.profile__pass #profile__pass #pass{
+    margin-left: 40px;
+}
+.fa{
+    cursor: pointer;
+    color:rgb(1, 1, 1);
+    font-size:27px;
+    margin-left:8px;
+}
+/*tag*/
+.profile__content #tag-dr{
+    width: auto;
+    height: 30px;
+    background-color: rgb(74, 142, 253);
+    border: 2px solid rgb(35, 118, 252);
+    margin-left: 20px;
+}
+.profile__content #tag-dr p{
+    text-align: center;
+    align-items: center;
+    font-size: 18px;
+}
+#profile__tag{
+    margin-right: 300px;
+}
+/*button*/
+.profile__content #save{
+    margin-top: 50px;
+    background-color: rgb(35, 118, 252);
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+}
+/*footer*/
+.footer{
+    width: 100%;
+    height: 100px;
+}
+

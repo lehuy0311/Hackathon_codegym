@@ -1,0 +1,159 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .post-area{
+            cursor: pointer;
+        }
+        .create-post{
+            visibility: hidden;
+            width: 500px;
+            background-color: white;
+            border-radius: 10px;
+            position: absolute;
+            left: 50%;
+            margin-left: -250px;
+            margin-top: -215px;
+            top:50%;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        }
+        .post header{
+            display: flex;
+            font-size: 22px;
+            font-weight: 600;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            border-bottom: 1px solid #bfbfbf;
+        }
+        .post header p{
+            margin-left: 200px;
+        }
+        .post header #close{
+            margin-top: 15px;
+            margin-left: 130px;
+            border: 0;
+            cursor: pointer;
+        }
+        .post form{
+            margin: 20px 25px;
+        }
+        .post form .content{
+            display: flex;
+            align-items: center;
+        }
+        .post form .content img{
+            max-width: 52px;
+            border:1px solid rgb(176, 176, 176);
+            border-radius:5px;
+        }
+        .post form .content .detail{
+            margin: -3px 0 0 12px;
+        }
+        .post form .content .detail p{
+            font-size: 17px;
+            font-weight: 500;
+        }
+        .post form :where(textarea, button){
+            width: 100%;
+            outline: none;
+            border: none;
+        }
+        .post form textarea{
+            resize: none;
+            font-size: 18px;
+            margin-top: 30px;
+            min-height: 100px;
+        }
+        .post form .photo-emoji{
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        form .photo-emoji img{
+            cursor: pointer;
+        }
+        form .photo-emoji img:last-child{
+            max-width: 24px;
+        }
+        form button{
+            margin-top: 30px;
+            height: 53px;
+            cursor: no-drop;
+            font-size: 18px;
+            font-weight: 500;
+            color: #bcc0c4;
+            border-radius: 7px;
+            background-color: #e2e5e9;
+        }
+        form textarea:valid ~ button{
+            color: #fff;
+            cursor: pointer;
+            background-color: rgb(40, 147, 254);;
+        }
+        input[type="file"]{
+            display: none;
+        }
+        #images{
+            height: auto;
+            position: relative;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        figure{
+            width: 45%;
+        }
+        img{
+            width: 100%;
+        }
+        figcaption{
+            display: none;
+        }
+        #backgroundOverlay{
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            display:block;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(229, 229, 229);">
+    <div class="container" style="height: 60px; width:500px;border-radius:10px;display:flex;align-items: center;justify-content: center;background-color:white;">
+        <a id="user-icon__profile" href="profile.html" style="height: 40px; width:40px;display:block;border:1px solid rgb(176, 176, 176);border-radius:5px; background-image:url(../doan/resources/images/hh.png); background-size:cover;margin-right:20px;"></a>
+        <div class="post-area" id ="post-area" onclick="visiblePost()" style="height: 40px; width:400px; background-color:rgb(240, 240, 240);border-radius:20px;">
+            <div id="post-area__inside" onclick="visiblePost()" style="margin-top: 10px;margin-left: 20px;">
+                <span id="user-think" style="color: rgb(134, 134, 134);" onclick="visiblePost()">Bạn đang nghĩ gì thế? </span>
+            </div>
+        </div>
+    </div>
+    <div id="backgroundOverlay">
+    </div>
+    <div class="create-post" id="create-post">
+        <div class="wrapper" id="wrapper">
+            <section class="post" id="post">
+                <header id="header"><p id="title">Create Post</p><button id="close" onclick="hidePost()" style="height: 40px; width:40px; border-radius:25px;background-color:#bfbfbf;">X</button></header>
+                <form action="#" id="form-post">
+                    <div class="content" id="content">
+                        <img id="icon" src="../doan/resources/images/hh.png" alt="logo">
+                        <div class="detail" id="detail">
+                            <p id="user-name">Name user</p>
+                        </div>
+                    </div>
+                    <textarea id="text-area" placeholder="Bạn đang nghĩ gì? Tên"></textarea>
+                    <div class="photo-area" id="photo-area">
+                        <input type="file" id="file-input" accept="image/png, image/jpeg" onchange="preview()" multiple>
+                        <div id="images"></div>
+                    </div>
+                    <div class="photo-emoji" id="photo-emoji">
+                        <label for="file-input" id="file"><img id="photo" src="resources/icons/gallery.svg" alt=""></label>
+                        <img src="resources/icons/smile.svg" id="emoji" alt="">
+                    </div>
+                    <button id="btn-post">Post</button>
+                </form>
+            </section>
+        </div>
+    </div>
+    <script type="text/javascript" src="resources/js/MainUI.js"></script>
+</body>

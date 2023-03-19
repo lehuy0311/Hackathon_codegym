@@ -1,0 +1,92 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<style>
+    body {
+        background-image: linear-gradient(0deg, rgba(65,191,191,0), rgba(65,191,191,1) 70%);
+    }
+    .content .more-text{
+      display: none;
+    }
+    .content .read-less{
+        display: none;
+    }
+</style>
+
+<form name="edit" action="/controller/alterPost/<%= post.id_post %>" method="post">
+<div class="list-post" style="display:flex;height:auto; width:1100px;margin-left: 200px;margin-top: 20px;">
+    <div class="posts" style="width: 600px;border-radius: 10px;background-color: white;">
+        <div class="head"
+            style="display: flex;border-radius: 10px;padding: 15px;background: white;align-items: center;justify-content: space-between;">
+            <div class="name-profile" style="display:flex; align-items:center;">
+                <img src="/images/<%= post.icon_image %> " alt="Avatar of user" class="avatar"
+                    style="width: 40px;height: 40px;border-radius: 5px;border: 1px solid rgb(184, 184, 184);">
+                    <input id="file" name="img" type="file" onchange="loadFile(event)"/>
+                    <img src="/images/<%= user.icon_image %> " id="output" width="200px" height="200px"/>
+                <div class="name-title" style="margin-left: 10px;">
+                    <h4 id="name" style="margin-bottom: 0px;">
+                        <%= post.name %>
+                    </h4>
+                    <p id="time-post" style="color: gray;font-size: 14px;">
+                        <%= post.time %>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="body" style="padding: 5px 15px 10px 15px;">
+            <input type="text" name="tit" value="<%= post.title %> ">
+            <!-- chèn nội dung vào hoặc để null nếu chỉ có ảnh -->
+            <textarea id="text-area" name="cont" placeholder="Bạn đang nghĩ gì?"><%= post.content %> </textarea>
+            <div class="post-images" id="post-images" style="padding-top: 15px;">
+                <!-- bỏ vào for để chèn tất cả các hình của post vào đây -->
+                <img src="/images/<%= post.image_path %> " class="post-image" alt="Illustration picture"
+                    style="width: 570px;height: auto;border-radius: 10px;margin-bottom: 5px;">
+            </div>
+            <div class="btn-icon">
+                <div class="left-icon" style="display: flex;">
+                    <div class="btn-icon">
+                        <div class="left-icon" style="display: flex;justify-content:space-between">
+                            <input type="submit" name="btnEdit" class="btn btn-primary" value="OK">
+                            <input type="button" name="btnCancel" class="btn btn-warning" value="Cancel">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+          $(document).ready(function(){
+            var maxLength = 300;
+            $(".content").each(function(){
+                var myStr = $(this).text();
+                if($.trim(myStr).length > maxLength){
+                    var newStr = myStr.substring(0, maxLength);
+                    var removedStr = myStr.substring(maxLength, myStr.length);
+                    $(this).empty().html(newStr);
+                    $(this).append(' <a href="javascript:void(0);" class="read-more">Xem thêm...</a>');
+                    $(this).append('<span class="more-text">' + removedStr + '</span>');
+                    $(this).append(' <a href="#" class="read-less"> Thu gọn</a>');
+                }
+            });
+            $(".read-more").click(function(){
+                $(this).siblings().slideToggle(200);
+                $(this).hide();
+            });
+            $(".read-less").click(function(){
+                $(this).siblings().slideToggle(200);
+                $(this).hide();
+            });
+        });
+
+        </script>
+    </div>
+    <div style="height: auto;width:1px;background-color:rgb(105, 104, 104)"></div>
+</div>
+</form>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>My Profile</title>
+        <link rel="shortcut icon" href="../doan/resources/images/logo.png">
+        <link rel="stylesheet" href="../doan/resources/css/myProfile.css">
+        <!--  -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Radio+Canada&display=swap" rel="stylesheet">
+        <!--  -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <!--  -->
+        <script src="../doan/resources/js/editProfile.js"></script>
+
+    </head>
+    <body>
+        <form action="" method="post" name="my-profile">
+            <header>
+                <div class="head">
+                    <div class="head__title">
+                        <h1 id="head__title--descreption" style="font-family: 'Radio Canada', sans-serif;">My Profile</h1>
+                    </div>
+                </div>
+            </header>
+            <div class="main">
+                <div class="main__nav">
+                    <div class="main__nav__btn">
+                        <img src="D:/Code/doan/resources/images/editLogo.png" alt="edit_image" width="50px" height="50px">
+                        <button type="button" id="main__nav__edit" onclick="changeTab(this)">Edit Profile</button>
+                    </div>
+                    <div id="main__nav__line"></div>
+                    <div class="main__nav__btn">
+                        <img src="D:/Code/doan/resources/images/drListLogo.png" alt="edit_image" width="50px" height="50px">
+                        <button type="button" id="main__nav__list" onclick="changeTab(this)">Doctor List</button>
+                    </div>
+                    <div id="main__nav__line"></div>
+                </div>
+                <div class="main__line"></div>
+                <div class="main__content" style="margin-top: 10px;">
+                    <iframe id="main__content__iframe" src="../doan/editProfile.html" title="iframe" scrolling="no" style="height: 180%;width: 100%;"></iframe>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
+</html>
